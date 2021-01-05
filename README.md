@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Pokémon React App #
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Using React and Node 12.15.0, please build a Single Page Application according to the wireframes using [create-react-app](https://github.com/facebookincubator/create-react-app#creating-an-app) as a boilerplate. The wireframes are a guideline for main components and layout.
 
-## Available Scripts
+## Includes ##
+* React via create-react-app
+* node-sass (enables scss)
+* Redux installed
 
-In the project directory, you can run:
+## Requirements ##
+* Build from the designs in [Invision](https://adkgroup.invisionapp.com/console/share/UYHW742QJWR)
+* Single page app -- no react-router required
+* Call the API provided in the Resources section of this ReadMe
+* Use [Redux](https://redux.js.org/docs/basics/UsageWithReact.html)
+* Import libraries (functionality is outlined in the Features section of this ReadMe): 
+    * [Recharts](http://recharts.org/#/en-US/examples/SimpleBarChart)
+    * [Axios](https://github.com/axios/axios)
+    * [Ant Design](https://3x.ant.design/docs/react/introduce)
 
-### `yarn start`
+## Resources ##
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* [API Documentation](https://pokeapi.co/docs/v2.html)
+* [React Documentation](https://github.com/facebookincubator/create-react-app#creating-an-app)
+* [Redux Documentation](https://redux.js.org/docs/basics/UsageWithReact.html)
+* [Recharts](http://recharts.org/)
+* [Pokémon Types / Color Examples](http://www.pokemongodb.net/2016/04/pokemon-go-types.html)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Please give the API a second to spin up when you first visit the page!
 
-### `yarn test`
+## Components & Features (User Stories) ##
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* As a User, I want to be able to type a Pokémon's name in a search box and have the component show me suggestions of Pokémon in a dropdown selectable list. 
+* As a User, when I select a Pokémon from the auto-suggest list I want to see that Pokémon's image, attack, defense, and type(s) in an InfoBox Component. 
+    * I want to see a unique color indication (text color, background color, etc) for a specific type of Pokémon.
+* As a User, when I select a Pokémon from the auto-suggest list I want to see that Pokémon's basic statistics (attack, defense, stamina) in a BarChart Component.
+    * X-axis: statistic name
+    * Y-axis: value
+    * If a value is >= 50, change the color of the bar to red. 
+    * If a value is <50 & >=20, change the color of the bar to yellow. 
+    * If a value is <20, change the color of the bar to grey.
+* As a User, when I click on the Pokéball near the graph the data will toggle between basic statistics & moves.
+* As a User, when I toggle the Pokéball, I want to see that Pokémon's moves and values in a BarChart Component.
+    * X-axis: statistic name
+    * Y-axis: value
+    * If a value is >= 50, change the color of the bar to red. 
+    * If a value is <50 & >=20, change the color of the bar to yellow. 
+    * If a value is <20, change the color of the bar to grey.
 
-### `yarn build`
+## Show Off ##
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+These are not required functionalities, but a few examples to show off some advanced skills. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Responsiveness -- mobile and/or tablet
+* Make the Pokéball using ONLY SCSS
+* Make the Pokéball animate (rotate, bounce, grow/shrink, dealer's choice)
+* Create a Middleware that triggers an easter egg
+    * Intercept the Pokémon type and show an easter egg! 
+    * Ex: If a fire Pokémon is selected, make the screen flash red. If an ice Pokémon is selected, overlay the page with snowflakes.
+* Game-ify this App!
+    * Add a Screen for a game & link to it from the original app. 
+    * Give the User 2 random Pokémon by name.
+    * Let the User select a sequence of 3 moves out of the total available moves for each Pokémon.
+    * Battle the Pokémon... because that's what they do. 
+    * Show the victorious and defeated based on the sum of the move power values and the defense of the opposing Pokémon; whoever hits defense = 0 first loses.
