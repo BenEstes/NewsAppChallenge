@@ -7,9 +7,13 @@ const axiosInstance = axios.create({
   headers: {'Content-Type': 'application/json; charset=utf-8'}
 })
 
-export const buildRequestConfig = (country, method) => {
+export const buildRequestConfig = (country, page, method) => {
   const request = {
-    params: {country: country},
+    params: {
+      country: country,
+      pageSize: 20,
+      page: page
+    },
     method,
   }
   return request

@@ -1,10 +1,15 @@
 @media only screen and (min-width: 320px) {
   .headline-list {
 
+    .headline-header{
+      padding: 16px;
+      font-size: 20px;
+    }
+    
     .headline-container {
       border: 1px solid rgb(95, 99, 104);
-      padding: 16px;
       border-radius: 10px;
+      padding: 16px;
       margin: 0 15px 15px 15px;
 
       .headline-anchor {
@@ -20,6 +25,7 @@
           align-items: center;
           .headline-title {
             width: 100%;
+            font-size: 18px;
           }
 
           .headline-img {
@@ -33,9 +39,11 @@
 
       .headline-bottom-container {
         display: flex;
+        font-size: 12px;
 
         .headline-source {
           padding: 16px;
+          padding-left: 0px;
         }
         .headline-time {
           padding: 16px;

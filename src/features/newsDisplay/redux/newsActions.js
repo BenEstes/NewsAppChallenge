@@ -8,10 +8,12 @@ export const fetchGlobalHeadlinesBegin = () => ({
 })
 
 export const fetchGlobalHeadlinesSucces = (results) => {
-  const headlines = results.data.articles
   return {
     type: type.FETCH_GLOBALHEADLINES_SUCCESS,
-    payload: headlines
+    payload: {
+      headlines: results.data.articles,
+      totalResults: results.data.totalResults
+    }
   }
 }
 
@@ -20,10 +22,10 @@ export const fetchGlobalHeadlinesFail = (error) => ({
   payload: error
 })
 
-export const fetchGlobalHeadlines = () => async dispatch => {
+export const fetchGlobalHeadlines = (country, page) => async dispatch => {
   dispatch(fetchGlobalHeadlinesBegin())
   try {
-    const config = buildRequestConfig('us', 'get')
+    const config = buildRequestConfig(country, page, 'get')
     const response = await axiosInstance.request(config)
     console.log(response);
     dispatch(fetchGlobalHeadlinesSucces(response))
@@ -31,5 +33,13 @@ export const fetchGlobalHeadlines = () => async dispatch => {
   catch (error) {
     console.log(error);
     dispatch(fetchGlobalHeadlinesFail(error))
+  }
+}
+
+export const fetchNewPageResults = (country, newPage) => dispatch => {
+  dispatch(fetchGlobalHeadlines(country, newPage))
+  return {
+    type: type.FETCH_NEWPAGE_RESULTS,
+    payload: newPage
   }
 }
