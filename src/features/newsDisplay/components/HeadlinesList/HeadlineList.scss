@@ -1,0 +1,46 @@
+@media only screen and (min-width: 320px) {
+  .headline-list {
+
+    .headline-container {
+      border: 1px solid rgb(95, 99, 104);
+      padding: 16px;
+      border-radius: 10px;
+      margin: 0 15px 15px 15px;
+
+      .headline-anchor {
+        color: black;
+        width: 100%;
+        text-decoration: none;
+        :hover{
+          text-decoration: underline;
+        }
+
+        .headline-top-container {
+          display: flex;
+          align-items: center;
+          .headline-title {
+            width: 100%;
+          }
+
+          .headline-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      .headline-bottom-container {
+        display: flex;
+
+        .headline-source {
+          padding: 16px;
+        }
+        .headline-time {
+          padding: 16px;
+        }
+      }
+    }
+  }
+}
