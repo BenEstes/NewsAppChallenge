@@ -1,7 +1,11 @@
+import insertItem from '../helpers/insertItem'
+
 const INITIAL_STATE = {
-  globalHeadlines: [],
-  globalHeadlinesLoading: false,
-  globalTotalResults: 0,
+  currentHeadlines: [],
+  currentHeadlinesLoading: false,
+  currentTotalResults: 0,
+
+  previousHeadlines: [],
 
   currentPage: 1
 }
@@ -9,22 +13,29 @@ const INITIAL_STATE = {
 const newsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
-    case 'FETCH_GLOBALHEADLINES_BEGIN':
-      return { ...state, globalHeadlinesLoading: true }
+    case 'FETCH_HEADLINES_BEGIN':
+      return { ...state, currentHeadlinesLoading: true }
 
-    case 'FETCH_GLOBALHEADLINES_SUCCESS':
+    case 'FETCH_HEADLINES_SUCCESS':
       return {
         ...state,
-        globalHeadlines: action.payload.headlines,
-        globalTotalResults: action.payload.totalResults,
-        globalHeadlinesLoading: false
+        currentHeadlines: action.payload.headlines,
+        currentTotalResults: action.payload.totalResults,
+        currentHeadlinesLoading: false,
+        previousHeadlines: insertItem(state.previousHeadlines, action.payload),
+        currentPage: parseInt(action.payload.page)
       }
 
-    case 'FETCH_GLOBALHEADLINES_FAIL':
-      return { ...state, globalHeadlinesLoading: false }
+    case 'FETCH_HEADLINES_FAIL':
+      return { ...state, currentHeadlinesLoading: false }
 
     case 'FETCH_NEWPAGE_RESULTS':
-      return { ...state, currentPage: action.payload }
+      return {
+        ...state,
+        currentHeadlines: action.payload.headlines,
+        currentPage: action.payload.page
+      }
+
 
     default:
       return state

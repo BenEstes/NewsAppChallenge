@@ -3,22 +3,36 @@ import './HeadlineList.scss'
 import Moment from 'react-moment'
 import ButtonNavigation from '../ButtonNavigation/ButtonNavigation'
 import { connect } from 'react-redux'
-import { fetchGlobalHeadlines } from '../../redux/newsActions'
+import { fetchHeadlines, fetchNewPageResults } from '../../redux/newsActions'
 
 class HeadlineList extends Component {
-  
+
   componentDidMount() {
-    this.props.fetchGlobalHeadlines('us', '1')
+    this.props.fetchHeadlines('1')
+  }
+
+  handleScroll = e => {
+    console.log('hit')
+    let element = e.target
+    console.log(element.scrollHeight, element.scrollTop);
+
+    if (element.scrollHeight - (element.scrollTop + 200) === element.clientHeight)
+    console.log('api would fire here')
+      // this.props.fetchNewPageResults()
   }
 
   renderHeadlines = () => {
-    if (this.props.globalHeadlines !== []) {
-      return this.props.globalHeadlines.map(headline => {
+    if (this.props.currentHeadlines !== []) {
+      return this.props.currentHeadlines.map(headline => {
         return (
           <div className='headline-container' key={headline.title}>
             <a className='headline-anchor' href={headline.url} target='_blank' rel='noreferrer'>
               <div className='headline-top-container'>
-                <span className='headline-title'>{headline.title.slice(0, headline.title.lastIndexOf('-'))}</span>
+                <span className='headline-title'>
+                  {(headline.title.lastIndexOf('-') === -1) ?
+                    headline.title :
+                    headline.title.slice(0, headline.title.lastIndexOf('-'))}
+                </span>
                 <img className='headline-img' src={headline.urlToImage} alt={headline.title}></img>
               </div>
             </a>
@@ -36,7 +50,7 @@ class HeadlineList extends Component {
 
   render() {
     return (
-      <div className='headline-list'>
+      <div className='headline-list' onScroll={this.handleScroll}>
         <ButtonNavigation />
         <h1 className='headline-header'>Top-Headlines</h1>
         {this.renderHeadlines()}
@@ -45,11 +59,12 @@ class HeadlineList extends Component {
   }
 }
 const mapStateToProps = ({ newsReducer }) => {
-  const { globalHeadlines, globalHeadlinesLoading } = newsReducer
+  const { currentHeadlines, currentHeadlinesLoading, currentPage } = newsReducer
   return {
-    globalHeadlines,
-    globalHeadlinesLoading
+    currentHeadlines,
+    currentHeadlinesLoading,
+    currentPage
   }
 }
 
-export default connect(mapStateToProps, { fetchGlobalHeadlines })(HeadlineList)
+export default connect(mapStateToProps, { fetchHeadlines, fetchNewPageResults })(HeadlineList)
