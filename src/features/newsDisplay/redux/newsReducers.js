@@ -19,7 +19,7 @@ const newsReducer = (state = INITIAL_STATE, action) => {
     case 'FETCH_HEADLINES_SUCCESS':
       return {
         ...state,
-        currentHeadlines: action.payload.headlines,
+        currentHeadlines: state.currentHeadlines.concat(action.payload.headlines),
         currentTotalResults: action.payload.totalResults,
         currentHeadlinesLoading: false,
         previousHeadlines: insertItem(state.previousHeadlines, action.payload),

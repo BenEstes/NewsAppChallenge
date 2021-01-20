@@ -1,31 +1,43 @@
 import React, { Component } from 'react'
 import './HeadlineList.scss'
 import Moment from 'react-moment'
-import ButtonNavigation from '../ButtonNavigation/ButtonNavigation'
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { fetchHeadlines, fetchNewPageResults } from '../../redux/newsActions'
 
 class HeadlineList extends Component {
 
   componentDidMount() {
-    this.props.fetchHeadlines('1')
+    this.props.fetchHeadlines(this.props.currentPage)
   }
 
-  handleScroll = e => {
-    console.log('hit')
-    let element = e.target
-    console.log(element.scrollHeight, element.scrollTop);
+  screen = React.createRef()
 
-    if (element.scrollHeight - (element.scrollTop + 200) === element.clientHeight)
-    console.log('api would fire here')
-      // this.props.fetchNewPageResults()
+  // calling api request twice when it hits the conditional
+  handleScroll = () => {
+    console.log(this.screen);
+
+    let element = this.screen.current
+    const page = this.props.currentPage
+    console.log(((element.scrollTop + element.clientHeight)/element.scrollHeight) * 100)
+
+
+    // When user hits the bottom of the page
+    if (((element.scrollTop + element.clientHeight)/element.scrollHeight) * 100 >= 80) {
+      console.log(page + 1)
+      console.log('hit');
+
+      this.props.fetchHeadlines(page + 1)
+    }
   }
+
 
   renderHeadlines = () => {
-    if (this.props.currentHeadlines !== []) {
-      return this.props.currentHeadlines.map(headline => {
+    const { currentHeadlines } = this.props
+    if (currentHeadlines !== []) {
+      return currentHeadlines.map((headline, index) => {
         return (
-          <div className='headline-container' key={headline.title}>
+          <div className='headline-container' key={headline.title + index}>
             <a className='headline-anchor' href={headline.url} target='_blank' rel='noreferrer'>
               <div className='headline-top-container'>
                 <span className='headline-title'>
@@ -50,8 +62,7 @@ class HeadlineList extends Component {
 
   render() {
     return (
-      <div className='headline-list' onScroll={this.handleScroll}>
-        <ButtonNavigation />
+      <div ref={this.screen} className='headline-list' onScroll={_.throttle(this.handleScroll, 500)}>
         <h1 className='headline-header'>Top-Headlines</h1>
         {this.renderHeadlines()}
       </div>
@@ -67,4 +78,6 @@ const mapStateToProps = ({ newsReducer }) => {
   }
 }
 
-export default connect(mapStateToProps, { fetchHeadlines, fetchNewPageResults })(HeadlineList)
+const mapDispatchToProps = { fetchHeadlines, fetchNewPageResults }
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeadlineList)
