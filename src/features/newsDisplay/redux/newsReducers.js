@@ -7,7 +7,9 @@ const INITIAL_STATE = {
 
   previousHeadlines: [],
 
-  currentPage: 1
+  currentPage: 1,
+
+  searchTerm: 'covid'
 }
 
 const newsReducer = (state = INITIAL_STATE, action) => {

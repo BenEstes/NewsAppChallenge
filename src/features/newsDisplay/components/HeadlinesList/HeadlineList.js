@@ -5,10 +5,13 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import { fetchHeadlines, fetchNewPageResults } from '../../redux/newsActions'
 
+
 class HeadlineList extends Component {
 
+
   componentDidMount() {
-    this.props.fetchHeadlines(this.props.currentPage)
+    
+    this.props.fetchHeadlines(this.props.searchTerm, this.props.currentPage)
   }
 
   screen = React.createRef()
@@ -16,18 +19,16 @@ class HeadlineList extends Component {
   // calling api request twice when it hits the conditional
   handleScroll = () => {
     console.log(this.screen);
-
     let element = this.screen.current
     const page = this.props.currentPage
-    console.log(((element.scrollTop + element.clientHeight)/element.scrollHeight) * 100)
-
+    console.log(((element.scrollTop + element.clientHeight) / element.scrollHeight) * 100)
 
     // When user hits the bottom of the page
-    if (((element.scrollTop + element.clientHeight)/element.scrollHeight) * 100 >= 80) {
+    if (((element.scrollTop + element.clientHeight) / element.scrollHeight) * 100 >= 80) {
       console.log(page + 1)
       console.log('hit');
 
-      this.props.fetchHeadlines(page + 1)
+      this.props.fetchHeadlines(this.props.searchTerm, page + 1)
     }
   }
 
@@ -62,7 +63,7 @@ class HeadlineList extends Component {
 
   render() {
     return (
-      <div ref={this.screen} className='headline-list' onScroll={_.throttle(this.handleScroll, 500)}>
+      <div ref={this.screen} className='headline-list' onScroll={_.debounce(this.handleScroll, 250)}>
         <h1 className='headline-header'>Top-Headlines</h1>
         {this.renderHeadlines()}
       </div>
@@ -70,11 +71,12 @@ class HeadlineList extends Component {
   }
 }
 const mapStateToProps = ({ newsReducer }) => {
-  const { currentHeadlines, currentHeadlinesLoading, currentPage } = newsReducer
+  const { currentHeadlines, currentHeadlinesLoading, currentPage, searchTerm } = newsReducer
   return {
     currentHeadlines,
     currentHeadlinesLoading,
-    currentPage
+    currentPage,
+    searchTerm
   }
 }
 

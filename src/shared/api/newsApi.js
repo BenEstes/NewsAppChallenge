@@ -4,19 +4,21 @@
 import axios from 'axios'
 
 const axiosInstance = axios.create({
-  baseURL: 'http://newsapi.org/v2/everything?q=trump&apiKey=825841330e1e4dd3bb504aeeb5faaadd',
+  baseURL: 'http://newsapi.org/v2/',
   headers: {'Content-Type': 'application/json; charset=utf-8'}
 })
 
-export const buildRequestConfig = (page, method) => {
-  const request = {
+export const buildRequestConfig = (searchTerm, page, method) => {
+  const get = {
     params: {
+      q: searchTerm,
       pageSize: 20,
-      page: page
+      page: page,
+      apiKey: 'ee0346de0cf443f2aec9e0f643d88874'
     },
     method,
   }
-  return request
+  return get
 }
 
 export default axiosInstance

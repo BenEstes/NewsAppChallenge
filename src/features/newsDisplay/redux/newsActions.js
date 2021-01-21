@@ -24,11 +24,11 @@ export const fetchHeadlinesFail = (error) => ({
   payload: error
 })
 
-export const fetchHeadlines = (page) => async dispatch => {
+export const fetchHeadlines = (searchTerm, page) => async dispatch => {
   dispatch(fetchHeadlinesBegin())
   try {
-    const config = buildRequestConfig(page, 'get')
-    const response = await axiosInstance.request(config)
+    const config = buildRequestConfig(searchTerm, page, 'get')
+    const response = await axiosInstance.get('everything', config)
     dispatch(fetchHeadlinesSuccess(response))
   }
   catch (error) {
