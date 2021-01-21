@@ -4,6 +4,7 @@ import Moment from 'react-moment'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { fetchHeadlines, fetchNewPageResults } from '../../redux/newsActions'
+import LoadingIndicator from '../../../../shared/components/LoadingIndicator'
 
 class HeadlineList extends Component {
 
@@ -17,16 +18,16 @@ class HeadlineList extends Component {
   }
 
   handleScroll = () => {
+    const { page, currentTotalResults, searchType, searchTerm, fetchHeadlines } = this.props
     const element = document.documentElement
-    const page = this.props.currentPage
     const height = element.scrollHeight - element.clientHeight
     console.log('hit')
 
     // When user scrolls 75% of the page and less than 100 requests have been sent.
     if ((document.documentElement.scrollTop) / height * 100 >= 75) {
-      if (page >= 5 || this.props.currentTotalResults < 20) {
+      if (page >= 5 || currentTotalResults < 20) {
       } else {
-        this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', page + 1)
+        fetchHeadlines(searchType, searchTerm, 'us', page + 1)
       }
     }
   }
@@ -60,12 +61,18 @@ class HeadlineList extends Component {
     return (
       <div className='headline__list'>
         {this.renderHeadlines()}
+        {(this.props.currentHeadlinesLoading) ? <LoadingIndicator /> : null }
       </div>
     )
   }
 }
 const mapStateToProps = ({ newsReducer }) => {
-  const { currentHeadlines, currentHeadlinesLoading, currentTotalResults, currentPage, searchTerm, searchType } = newsReducer
+  const { currentHeadlines, 
+    currentHeadlinesLoading, 
+    currentTotalResults, 
+    currentPage, searchTerm, 
+    searchType 
+  } = newsReducer
   return {
     currentHeadlines,
     currentHeadlinesLoading,

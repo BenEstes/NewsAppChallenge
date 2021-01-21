@@ -12,8 +12,9 @@ class SearchBar extends Component {
   }
 
   handleEnterPress = () => {
-    this.props.clearCurrentHeadlines()
-      this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', 1)
+    const { clearCurrentHeadlines, fetchHeadlines, searchType, searchTerm } = this.props
+    clearCurrentHeadlines()
+      fetchHeadlines(searchType, searchTerm, 'us', 1)
   }
 
   render() {

@@ -8,9 +8,10 @@ import './DropDown.scss'
 class DropDown extends Component {
 
   handleClick = (searchType) => {
-    this.props.setSearchType(searchType)
-    this.props.clearCurrentHeadlines()
-    this.props.fetchHeadlines(searchType, this.props.searchTerm, 'us', 1)
+    const { searchTerm, setSearchType, clearCurrentHeadlines, fetchHeadlines } = this.props
+    setSearchType(searchType)
+    clearCurrentHeadlines()
+    fetchHeadlines(searchType, searchTerm, 'us', 1)
   }
 
   render() {
