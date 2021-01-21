@@ -23,12 +23,14 @@ export const fetchHeadlinesFail = (error) => ({
   payload: error
 })
 
-export const fetchHeadlines = (searchType, searchTerm, country, page) => async dispatch => {
+export const fetchHeadlines = (searchType, searchTerm, country, page, sortBy) => async dispatch => {
   dispatch(fetchHeadlinesBegin())
   try {
-    let config = buildRequestConfig(searchTerm, country, page, 'get')
+    let config = buildRequestConfig(searchTerm, country, page, sortBy, 'get')
+    // API Can't use country parameter with everything endpoint, 
+    // If eveything endpoint is selected then country gets passed as null
     if(searchType === 'everything'){
-      config = buildRequestConfig(searchTerm, null, page, 'get')
+      config = buildRequestConfig(searchTerm, null, page, sortBy, 'get')
     }
     const response = await axiosInstance.get(searchType, config)
     dispatch(fetchHeadlinesSuccess(response))
@@ -63,6 +65,15 @@ export const setSearchType = (searchType) => {
     type: type.SET_SEARCH_TYPE,
     payload: {
       searchType: searchType
+    }
+  }
+}
+
+export const setSortBy = (sortBy) => {
+  return {
+    type: type.SET_SORT_BY,
+    payload: {
+      sortBy: sortBy
     }
   }
 }

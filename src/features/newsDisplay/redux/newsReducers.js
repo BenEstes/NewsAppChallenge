@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   currentPage: 1,
 
   searchTerm: 'Biden',
-  searchType: 'everything'
+  searchType: 'everything',
+  sortBy: 'publishedAt'
 }
 
 const newsReducer = (state = INITIAL_STATE, action) => {
@@ -49,6 +50,12 @@ const newsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         searchType: action.payload.searchType
+      }
+
+    case 'SET_SORT_BY':
+      return {
+        ...state,
+        sortBy: action.payload.sortBy
       }
 
     case 'CLEAR_CURRENT_HEADLINES':

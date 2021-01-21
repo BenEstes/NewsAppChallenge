@@ -1,6 +1,10 @@
 .headline__list {
   padding: 20px 0;
 
+  &__title{
+    margin-left: 50px;
+  }
+
   .headline {
     border: 1px solid rgb(95, 99, 104);
     border-radius: 10px;

@@ -5,12 +5,15 @@ import { fetchHeadlines, setSearchType, clearCurrentHeadlines } from '../../redu
 import './DropDown.scss'
 
 
-class DropDown extends Component {
+class DropDownCategory extends Component {
 
   handleClick = (searchType) => {
     const { searchTerm, setSearchType, clearCurrentHeadlines, fetchHeadlines } = this.props
+    // Sets Search type (TopHeadlines or All News)
     setSearchType(searchType)
+    // Clears all current headlines leaving user with a fresh page
     clearCurrentHeadlines()
+    // Fetches new data with selected searchType and current searchTerm
     fetchHeadlines(searchType, searchTerm, 'us', 1)
   }
 
@@ -21,7 +24,7 @@ class DropDown extends Component {
           Top-Headlines
         </Menu.Item>
         <Menu.Item onClick={() => this.handleClick('everything')}>
-          Breaking News
+          All News
         </Menu.Item>
       </Menu>
     )
@@ -45,4 +48,4 @@ const mapStateToProps = ({ newsReducer }) => {
 const mapDispatchToProps = { fetchHeadlines, setSearchType, clearCurrentHeadlines }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropDown)
+export default connect(mapStateToProps, mapDispatchToProps)(DropDownCategory)
