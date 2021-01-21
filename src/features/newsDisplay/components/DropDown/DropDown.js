@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Dropdown, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { fetchHeadlines, setSearchType, clearCurrentHeadlines } from '../../redux/newsActions'
+import './DropDown.scss'
 
 
 class DropDown extends Component {

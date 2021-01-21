@@ -1,3 +1,33 @@
-.App {
-  font-family: 'Roboto', sans-serif;
+.app {
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(32, 33, 36);
+  color: rgb(225, 225, 226);
+
+  .topBar {
+    background-color: rgb(32, 33, 36);
+    position: sticky;
+    top: 0;
+    height: 60px;
+    @media only screen and (min-width: 12em) {
+      padding-top: 5px;
+    }
+
+    @media only screen and ( min-width: 90em ){
+      height: 110px;
+    }
+
+    &__title {
+      display: none;
+      @media only screen and (min-width: 48em) {
+        display: inline;
+        font-size: 20px;
+        padding: 0 15px;
+        color: rgb(225, 225, 226);
+      }
+
+      @media only screen and ( min-width: 90em ){
+        font-size: 30px;
+      }
+    }
+  }
 }

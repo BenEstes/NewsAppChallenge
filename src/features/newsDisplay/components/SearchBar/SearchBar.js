@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Input, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { fetchHeadlines, setSearchTerm, clearCurrentHeadlines } from '../../redux/newsActions'
+import './SearchBar.scss'
 
 class SearchBar extends Component {
 
@@ -23,7 +24,7 @@ class SearchBar extends Component {
         onPressEnter={this.handleEnterPress}
         placeholder='Search for topics'
         suffix={<Icon type='search' />}
-        style={{ width: '80%', height: '50px' }}
+        style={{ width: '60%', height: '50px' }}
       />
 
     )

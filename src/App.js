@@ -7,9 +7,12 @@ import DropDown from './features/newsDisplay/components/DropDown/DropDown'
 
 function App() {
   return (
-    <div className="App">
-      <SearchBar />
-      <DropDown />
+    <div className="app">
+      <div className='topBar'>
+        <span className='topBar__title'>Not Google News</span>
+        <SearchBar />
+        <DropDown />
+      </div>
       <HeadlineList />
     </div>
   )

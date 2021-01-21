@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   currentPage: 1,
 
   searchTerm: 'Biden',
-  searchType: 'top-headlines'
+  searchType: 'everything'
 }
 
 const newsReducer = (state = INITIAL_STATE, action) => {

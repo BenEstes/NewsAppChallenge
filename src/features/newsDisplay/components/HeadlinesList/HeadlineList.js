@@ -9,11 +9,11 @@ class HeadlineList extends Component {
 
   componentDidMount() {
     this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', this.props.currentPage)
-    window.addEventListener('scroll', _.debounce(this.handleScroll, 250))
+    window.addEventListener('scroll', _.debounce(this.handleScroll, 200))
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', _.debounce(this.handleScroll, 250))
+    window.removeEventListener('scroll', _.debounce(this.handleScroll, 200))
   }
 
   handleScroll = () => {
@@ -22,8 +22,8 @@ class HeadlineList extends Component {
     const height = element.scrollHeight - element.clientHeight
     console.log('hit')
 
-    // When user scrolls 80% of the page and less than 100 requests have been sent.
-    if ((document.documentElement.scrollTop) / height * 100 >= 80) {
+    // When user scrolls 75% of the page and less than 100 requests have been sent.
+    if ((document.documentElement.scrollTop) / height * 100 >= 75) {
       if (page >= 5 || this.props.currentTotalResults < 20) {
       } else {
         this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', page + 1)
@@ -37,18 +37,16 @@ class HeadlineList extends Component {
     if (currentHeadlines !== []) {
       return currentHeadlines.map((headline, index) => {
         return (
-          <div className='headline-container' key={headline.title + index}>
-            <a className='headline-anchor' href={headline.url} target='_blank' rel='noreferrer'>
-              <div className='headline-top-container'>
-                <span className='headline-title'>
-                  {headline.title}
-                </span>
-                <img className='headline-img' src={headline.urlToImage} alt={headline.title}></img>
+          <div className='headline' key={headline.title + index}>
+            <a className='headline__anchor' href={headline.url} target='_blank' rel='noreferrer'>
+              <div className='headline__topContainer'>
+                <span className='headline__topContainer__title'>{headline.title}</span>
+                <img className='headline__topContainer__img' src={headline.urlToImage} alt={headline.title}></img>
               </div>
             </a>
-            <div className='headline-bottom-container'>
-              <span className='headline-source'>{headline.source.name}</span>
-              <span className='headline-time'><Moment fromNow>{headline.publishedAt}</Moment></span>
+            <div className='headline__bottomContainer'>
+              <span className='headline__bottomContainer__source'>{headline.source.name}</span>
+              <span className='headline__bottomContainer__time'><Moment fromNow>{headline.publishedAt}</Moment></span>
             </div>
           </div>
         )
@@ -60,7 +58,7 @@ class HeadlineList extends Component {
 
   render() {
     return (
-      <div className='headline-list'>
+      <div className='headline__list'>
         {this.renderHeadlines()}
       </div>
     )
