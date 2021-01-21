@@ -5,30 +5,29 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import { fetchHeadlines, fetchNewPageResults } from '../../redux/newsActions'
 
-
 class HeadlineList extends Component {
 
-
   componentDidMount() {
-    
-    this.props.fetchHeadlines(this.props.searchTerm, this.props.currentPage)
+    this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', this.props.currentPage)
+    window.addEventListener('scroll', _.debounce(this.handleScroll, 250))
   }
 
-  screen = React.createRef()
+  componentWillUnmount() {
+    window.removeEventListener('scroll', _.debounce(this.handleScroll, 250))
+  }
 
-  // calling api request twice when it hits the conditional
   handleScroll = () => {
-    console.log(this.screen);
-    let element = this.screen.current
+    const element = document.documentElement
     const page = this.props.currentPage
-    console.log(((element.scrollTop + element.clientHeight) / element.scrollHeight) * 100)
+    const height = element.scrollHeight - element.clientHeight
+    console.log('hit')
 
-    // When user hits the bottom of the page
-    if (((element.scrollTop + element.clientHeight) / element.scrollHeight) * 100 >= 80) {
-      console.log(page + 1)
-      console.log('hit');
-
-      this.props.fetchHeadlines(this.props.searchTerm, page + 1)
+    // When user scrolls 80% of the page and less than 100 requests have been sent.
+    if ((document.documentElement.scrollTop) / height * 100 >= 80) {
+      if (page >= 5 || this.props.currentTotalResults < 20) {
+      } else {
+        this.props.fetchHeadlines(this.props.searchType, this.props.searchTerm, 'us', page + 1)
+      }
     }
   }
 
@@ -42,9 +41,7 @@ class HeadlineList extends Component {
             <a className='headline-anchor' href={headline.url} target='_blank' rel='noreferrer'>
               <div className='headline-top-container'>
                 <span className='headline-title'>
-                  {(headline.title.lastIndexOf('-') === -1) ?
-                    headline.title :
-                    headline.title.slice(0, headline.title.lastIndexOf('-'))}
+                  {headline.title}
                 </span>
                 <img className='headline-img' src={headline.urlToImage} alt={headline.title}></img>
               </div>
@@ -63,20 +60,21 @@ class HeadlineList extends Component {
 
   render() {
     return (
-      <div ref={this.screen} className='headline-list' onScroll={_.debounce(this.handleScroll, 250)}>
-        <h1 className='headline-header'>Top-Headlines</h1>
+      <div className='headline-list'>
         {this.renderHeadlines()}
       </div>
     )
   }
 }
 const mapStateToProps = ({ newsReducer }) => {
-  const { currentHeadlines, currentHeadlinesLoading, currentPage, searchTerm } = newsReducer
+  const { currentHeadlines, currentHeadlinesLoading, currentTotalResults, currentPage, searchTerm, searchType } = newsReducer
   return {
     currentHeadlines,
     currentHeadlinesLoading,
+    currentTotalResults,
     currentPage,
-    searchTerm
+    searchTerm,
+    searchType
   }
 }
 

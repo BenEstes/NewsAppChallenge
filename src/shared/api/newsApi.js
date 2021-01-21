@@ -8,13 +8,14 @@ const axiosInstance = axios.create({
   headers: {'Content-Type': 'application/json; charset=utf-8'}
 })
 
-export const buildRequestConfig = (searchTerm, page, method) => {
+export const buildRequestConfig = (searchTerm, country, page, method) => {
   const get = {
     params: {
       q: searchTerm,
+      country: country,
       pageSize: 20,
       page: page,
-      apiKey: 'ee0346de0cf443f2aec9e0f643d88874'
+      apiKey: 'c6a040b412254cb290aa629b83abcf85'
     },
     method,
   }

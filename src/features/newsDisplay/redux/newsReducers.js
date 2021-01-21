@@ -9,7 +9,8 @@ const INITIAL_STATE = {
 
   currentPage: 1,
 
-  searchTerm: 'covid'
+  searchTerm: 'Biden',
+  searchType: 'top-headlines'
 }
 
 const newsReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +37,25 @@ const newsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentHeadlines: action.payload.headlines,
         currentPage: action.payload.page
+      }
+
+    case 'SET_SEARCH_TERM':
+      return {
+        ...state,
+        searchTerm: action.payload.searchTerm
+      }
+
+    case 'SET_SEARCH_TYPE': 
+      return {
+        ...state,
+        searchType: action.payload.searchType
+      }
+
+    case 'CLEAR_CURRENT_HEADLINES':
+      return {
+        ...state,
+        currentHeadlines: [],
+        currentPage: 1
       }
 
 

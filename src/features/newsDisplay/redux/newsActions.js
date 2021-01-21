@@ -8,7 +8,6 @@ export const fetchHeadlinesBegin = () => ({
 })
 
 export const fetchHeadlinesSuccess = (results) => {
-  console.log(results)
   return {
     type: type.FETCH_HEADLINES_SUCCESS,
     payload: {
@@ -24,11 +23,14 @@ export const fetchHeadlinesFail = (error) => ({
   payload: error
 })
 
-export const fetchHeadlines = (searchTerm, page) => async dispatch => {
+export const fetchHeadlines = (searchType, searchTerm, country, page) => async dispatch => {
   dispatch(fetchHeadlinesBegin())
   try {
-    const config = buildRequestConfig(searchTerm, page, 'get')
-    const response = await axiosInstance.get('everything', config)
+    let config = buildRequestConfig(searchTerm, country, page, 'get')
+    if(searchType === 'everything'){
+      config = buildRequestConfig(searchTerm, null, page, 'get')
+    }
+    const response = await axiosInstance.get(searchType, config)
     dispatch(fetchHeadlinesSuccess(response))
   }
   catch (error) {
@@ -38,11 +40,35 @@ export const fetchHeadlines = (searchTerm, page) => async dispatch => {
 }
 
 export const fetchNewPageResults = (page) => (dispatch, getState) => {
-    dispatch({
-      type: type.FETCH_NEWPAGE_RESULTS,
-      payload: {
-        page: page,
-        headlines: getState().newsReducer.previousHeadlines[page - 1]
-      }
-    })
+  dispatch({
+    type: type.FETCH_NEWPAGE_RESULTS,
+    payload: {
+      page: page,
+      headlines: getState().newsReducer.previousHeadlines[page - 1]
+    }
+  })
+}
+
+export const setSearchTerm = (searchTerm) => {
+  return {
+    type: type.SET_SEARCH_TERM,
+    payload: {
+      searchTerm: searchTerm
+    }
   }
+}
+
+export const setSearchType = (searchType) => {
+  return {
+    type: type.SET_SEARCH_TYPE,
+    payload: {
+      searchType: searchType
+    }
+  }
+}
+
+export const clearCurrentHeadlines = () => {
+  return {
+    type: type.CLEAR_CURRENT_HEADLINES,
+  }
+}
