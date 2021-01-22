@@ -19,21 +19,21 @@ class DropDownSort extends Component {
 
   render() {
     const menu = (
-      < Menu > 
-        <Menu.Item onClick={() => this.handleClick('publishedAt')}>
+      <Menu > 
+        <Menu.Item tabIndex='0' onClick={() => this.handleClick('publishedAt')}>
           Time Published
         </Menu.Item>
-        <Menu.Item onClick={() => this.handleClick('relevancy')}>
+        <Menu.Item tabIndex='0' onClick={() => this.handleClick('relevancy')}>
           Relevancy
         </Menu.Item>
-        <Menu.Item onClick={() => this.handleClick('popularity')}>
+        <Menu.Item tabIndex='0' onClick={() => this.handleClick('popularity')}>
           Popularity
         </Menu.Item>
       </Menu>
     )
     return (
       <Dropdown overlay={menu}>
-        <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+        <span tabIndex='0' className="ant-dropdown-link" onClick={e => e.preventDefault()}>
           Sort By <Icon type="down" />
         </span>
       </Dropdown>

@@ -20,12 +20,13 @@ class SearchBar extends Component {
   render() {
     return (
       <Input
+        tabIndex='0'
         value={this.props.searchTerm}
         onChange={this.handleChange}
         onPressEnter={this.handleEnterPress}
         placeholder='Search for topics'
         suffix={<Icon type='search' />}
-        style={{ width: '60%', height: '50px' }}
+        style={{ width: '45%', height: '50px' }}
       />
 
     )

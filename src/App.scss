@@ -6,12 +6,14 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: rgb(32, 33, 36);
   color: rgb(225, 225, 226);
+  overflow: hidden;
 
   .topBar {
     background-color: rgb(32, 33, 36);
     position: sticky;
     top: 0;
     height: 60px;
+    display: flex;
     @media only screen and (min-width: 12em) {
       padding-top: 5px;
     }
@@ -22,12 +24,19 @@ body {
       @media only screen and (min-width: 48em) {
         display: inline;
         font-size: 20px;
-        padding: 0 15px;
+        padding: 10px 15px;
       }
-      
+
       &__link {
         color: rgb(225, 225, 226);
       }
+    }
+
+    &__dropdowns {
+      // padding-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

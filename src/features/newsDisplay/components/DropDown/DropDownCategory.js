@@ -19,18 +19,18 @@ class DropDownCategory extends Component {
 
   render() {
     const menu = (
-      < Menu >
-        <Menu.Item onClick={() => this.handleClick('top-headlines')}>
+      <Menu >
+        <Menu.Item tabIndex='0' onClick={() => this.handleClick('top-headlines')}>
           Top-Headlines
         </Menu.Item>
-        <Menu.Item onClick={() => this.handleClick('everything')}>
+        <Menu.Item tabIndex='0' onClick={() => this.handleClick('everything')}>
           All News
         </Menu.Item>
       </Menu>
     )
     return (
       <Dropdown overlay={menu}>
-        <span className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+        <span tabIndex='0' className="ant-dropdown-link" onClick={e => e.preventDefault()}>
           Categories <Icon type="down" />
         </span>
       </Dropdown>

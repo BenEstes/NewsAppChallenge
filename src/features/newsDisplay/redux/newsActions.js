@@ -22,7 +22,7 @@ export const fetchHeadlinesFail = (error) => ({
   type: type.FETCH_HEADLINES_FAIL,
   payload: error
 })
-
+// Fetches new headline data from News API
 export const fetchHeadlines = (searchType, searchTerm, country, page, sortBy) => async dispatch => {
   dispatch(fetchHeadlinesBegin())
   try {
@@ -40,17 +40,31 @@ export const fetchHeadlines = (searchType, searchTerm, country, page, sortBy) =>
     dispatch(fetchHeadlinesFail(error))
   }
 }
-
-export const fetchNewPageResults = (page) => (dispatch, getState) => {
-  dispatch({
-    type: type.FETCH_NEWPAGE_RESULTS,
-    payload: {
-      page: page,
-      headlines: getState().newsReducer.previousHeadlines[page - 1]
-    }
-  })
+// Was being used for pagination and cached data
+export const fetchNewPageResults = (page, fob) => (dispatch, getState) => {
+  // const secondLastPageResults = getState().newsReducer.previousHeadlines[page-5]
+  const lastPageResults = getState().newsReducer.previousHeadlines[page-4]
+  const nextPageResults = getState().newsReducer.previousHeadlines[page]
+  const secondNextPageResults = getState().newsReducer.previousHeadlines[page+1]
+  if (fob === 'front') {
+    let headlines
+      headlines = lastPageResults
+    dispatch({
+      type: type.FETCH_NEWPAGE_RESULTSFRONT,
+      payload: {
+        headlines: headlines,
+      }
+    })
+  } else if (fob === 'back') {
+    dispatch({
+      type: type.FETCH_NEWPAGE_RESULTSBACK,
+      payload: {
+        headlines: nextPageResults.concat(secondNextPageResults),
+      }
+    })
+  }
 }
-
+// Updates value of search bar
 export const setSearchTerm = (searchTerm) => {
   return {
     type: type.SET_SEARCH_TERM,
@@ -60,6 +74,7 @@ export const setSearchTerm = (searchTerm) => {
   }
 }
 
+// Updates endpoint 
 export const setSearchType = (searchType) => {
   return {
     type: type.SET_SEARCH_TYPE,
@@ -69,6 +84,7 @@ export const setSearchType = (searchType) => {
   }
 }
 
+// Updates parameter that determines the order data comes in by.
 export const setSortBy = (sortBy) => {
   return {
     type: type.SET_SORT_BY,
@@ -81,5 +97,17 @@ export const setSortBy = (sortBy) => {
 export const clearCurrentHeadlines = () => {
   return {
     type: type.CLEAR_CURRENT_HEADLINES,
+  }
+}
+
+export const clearOldHeadlines = (fob) => {
+  if(fob === 'front') {
+    return {
+      type: type.CLEAR_OLD_HEADLINESFRONT
+    }
+  } else if (fob === 'back') {
+    return {
+      type: type.CLEAR_OLD_HEADLINESBACK
+    }
   }
 }

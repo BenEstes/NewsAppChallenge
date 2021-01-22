@@ -12,8 +12,10 @@ function App() {
       <div className='topBar'>
         <span className='topBar__title'><a className='topBar__title__link' href="https://duckduckgo.com/?va=b&t=hc">Not Google News</a></span>
         <SearchBar />
-        <DropDownCategory />
-        <DropDownSort />
+        <div className='topBar__dropdowns'>
+          <DropDownCategory />
+          <DropDownSort />
+        </div>
       </div>
       <HeadlineList />
     </div>

@@ -15,7 +15,7 @@ export const buildRequestConfig = (searchTerm, country, page, sortBy, method) =>
       country: country,
       pageSize: 20,
       page: page,
-      apiKey: '825841330e1e4dd3bb504aeeb5faaadd',
+      apiKey: 'ee0346de0cf443f2aec9e0f643d88874',
       language: 'en',
       sortBy: sortBy
     },

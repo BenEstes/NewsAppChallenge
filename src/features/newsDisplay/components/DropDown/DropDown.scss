@@ -1,7 +1,12 @@
 .ant-dropdown-link {
   color: rgb(225, 225, 226);
-  margin-left: 20px;
+  margin-left: 10px;
+  
+  @media only screen and (min-width: 48em) {
+    margin-left: 20px;
+  }
 }
+
 
 .ant-dropdown-menu {
   background-color: rgb(82, 83, 85);
