@@ -1,4 +1,4 @@
-body{
+body {
   background-color: rgb(32, 33, 36);
 }
 
@@ -16,21 +16,17 @@ body{
       padding-top: 5px;
     }
 
-    @media only screen and ( min-width: 90em ){
-      height: 110px;
-    }
-
     &__title {
       display: none;
+      text-decoration: none;
       @media only screen and (min-width: 48em) {
         display: inline;
         font-size: 20px;
         padding: 0 15px;
-        color: rgb(225, 225, 226);
       }
-
-      @media only screen and ( min-width: 90em ){
-        font-size: 30px;
+      
+      &__link {
+        color: rgb(225, 225, 226);
       }
     }
   }

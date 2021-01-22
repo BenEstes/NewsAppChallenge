@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="app">
       <div className='topBar'>
-        <span className='topBar__title'>Not Google News</span>
+        <span className='topBar__title'><a className='topBar__title__link' href="https://duckduckgo.com/?va=b&t=hc">Not Google News</a></span>
         <SearchBar />
         <DropDownCategory />
         <DropDownSort />
